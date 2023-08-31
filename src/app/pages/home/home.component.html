@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="content-wrapper">
+
+        <!-- ngModel binds the input value into specified variable -->
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput
+                [(ngModel)]="triviaService.userName"
+                placeholder="Enter your name" />
+        </mat-form-field>
+        <!-- {{triviaService.userName}} -->
+
+        <button
+            routerLink="/trivia"
+            class="start-button" mat-button>Start</button>
+
+        <h2>Leaderboard </h2>
+
+        <div class="row">
+            <div class="name-col">Username</div>
+            <div class="score-col">Score</div>
+        </div>
+
+        <div class="row" *ngFor="let score of scores">
+            <div class="name-col">{{score.username}}</div>
+            <div class="score-col">{{score.score}}</div>
+        </div>
+    </div>
+</div>

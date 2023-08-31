@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="content-wrapper">
+        <div class="top-container">
+            <div class="scroll-container">
+                Score: {{score}} </div>
+
+            <div class="timer-container">
+                Time Left: {{ countdown}}
+            </div>
+        </div>
+
+        <div class="question-container"
+            *ngIf="triviaService.questionsData.length != 0">
+            <!-- need to add this ngIf because initially we declare 'questionsData: Array<any> = []'  at trivia service -->
+
+            <div class="question"
+                [innerHTML]="triviaService.questionsData[questionIndex].question">
+                <!-- {{ triviaService.questionsData[questionIndex].question}} -->
+            </div>
+
+            <button
+                (click)="selectAnswer(option)"
+                [class.correct-option]="(userAnswer == option && userAnswer == triviaService.questionsData[questionIndex].correct_answer) 
+                || (userAnswer != '' && userAnswer != option && option == triviaService.questionsData[questionIndex].correct_answer) 
+                || (userAnswer == '' && countdown == 0 && option == triviaService.questionsData[questionIndex].correct_answer)"
+                [class.wrong-option]="userAnswer == option && userAnswer != triviaService.questionsData[questionIndex].correct_answer"
+                *ngFor="let option of triviaService.questionsData[questionIndex].incorrect_answers "
+                class="option" mat-button
+                [innerHTML]="option">
+
+                <!-- use innerHTML to avoid showing special symbols -->
+                <!-- {{option}} -->
+            </button>
+            <!-- for 3 correct options above:
+                1. show correct class when userAnswer equal to chosen option and equial to corrent answer
+                3. show green when chosen an option but wrong answer
+                2. show green for user not chose an option and countdown at 0
+            -->
+
+            <!-- {{triviaService.questionsData[questionIndex].correct_answer}}
+            {{userAnswer}} -->
+        </div>
+    </div>
+</div>
